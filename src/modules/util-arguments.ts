@@ -1,4 +1,6 @@
-
+function isParaName(value: string): boolean {
+    return typeof value === "string" && value[0] === "-";
+}
 export function getArgs(inArgs: Array<string>): { [key: string]: boolean | string } {
     const args = Array.from(inArgs);
     const maps: { [key: string]: boolean | string } = {};
@@ -8,10 +10,14 @@ export function getArgs(inArgs: Array<string>): { [key: string]: boolean | strin
             args.splice(0, 1);
             continue;
         }
-        const value = args[1] || "";
-
-        maps[key] = value.length === 0 || value[0] === "-" ? true : value;
-        args.splice(0, 2);
+        const value = args[1];
+        if (isParaName(value) || value === undefined) {
+            maps[key] = true;
+            args.splice(0, 1);
+        } else {
+            maps[key] = value;
+            args.splice(0, 2);
+        }
     }
     return maps;
 }
