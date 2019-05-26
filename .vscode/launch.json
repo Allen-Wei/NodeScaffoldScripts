@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "test args",
             // "program": "${workspaceFolder}/",
             "program": "${file}",
             "preLaunchTask": "tsc: build - tsconfig.json",
@@ -15,8 +15,10 @@
                 "--help",
                 "--first-name",
                 "alan",
+                "--public",
                 "-last-name",
-                "wei"
+                "wei",
+                "--last-param"
             ],
             "outFiles": [
                 "${workspaceFolder}/dist/debug/**/*.js"

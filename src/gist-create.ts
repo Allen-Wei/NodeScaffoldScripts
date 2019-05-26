@@ -90,31 +90,31 @@ function getGistFiles(): string[] {
     return Array.from(files).filter(f => typeof nameMatchs === "string" ? new RegExp(nameMatchs).test(f) : true);
 }
 function getToken(): string {
-    const token = (ARGS["--token"] || process.env.GIST_TOKEN).toString();
+    const token = (ARGS["--token"] || process.env.GIST_TOKEN || "").toString();
 
     if (!/[\d\w]+/.test(token)) {
-        throw new Error(`error token format: ${token}`);
+        throw new Error(`error token: ${token}`);
     }
 
     return token;
 }
 function showHelp(): void {
     print(`
-使用: node ${SCRIPT_FILE_NAME} [opitons]
+Usage: node ${SCRIPT_FILE_NAME} [opitons]
 
-选项: 
-    --help          显示帮助信息
-    --token         Gist token(缺省状态读取环境变量GIST_TOKEN). 创建token: https://github.com/settings/tokens 
-    --public        是否创建公开Gist, 默认false, 传递了参数就变成true. 
-    --description   Gist描述
+Options: 
+    --help          show help info
+    --token         gist token(if not support, read from environment GIST_TOKEN). create token: https://github.com/settings/tokens 
+    --public        create public gist or not, default value is false
+    --description   gist description
 
-    --directory     需要上传到gist上的文件的目录
-    --recursive     是否需要递归获取文件(默认false, 传递了参数为true.)
-    --name-match    文件名正则匹配
+    --directory     the directory of files that need upload to gist
+    --recursive     need recursive read files (default value is false)
+    --name-match    the regex value of file name match
 
-    --files         需要上传到gist上的文件列表, 多个用逗号分隔.
+    --files         the files path need upload to gist, multi file split by comma
 
-例子:
+Examples:
     node ${SCRIPT_FILE_NAME} --token your_token_value --directory ./ --name-match "\.(js|ts)$"
     node ${SCRIPT_FILE_NAME} --token your_token_value --files ./file.txt,./dir/file2.md
 `);
