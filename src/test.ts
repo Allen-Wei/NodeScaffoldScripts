@@ -1,14 +1,6 @@
-import { readdirSync, statSync } from "fs";
-import { join } from "path";
+import { recursiveDirFiles } from "./modules";
+import { readFileSync } from "fs";
 
-
-function* recursiveDirFiles(dir: string): IterableIterator<string> {
-    const items = readdirSync(dir).map(f => join(dir, f));
-    yield* items.filter(item => statSync(item).isFile());
-
-    for (let subDir of items.filter(item => statSync(item).isDirectory())) {
-        yield* recursiveDirFiles(subDir);
-    }
-}
-
-Array.from(recursiveDirFiles(__dirname)).forEach(i => console.log(i));
+const items = Array.from(recursiveDirFiles("/Users/alan/workspace/projects/JavaScriptBoilerplates/src"))
+    .map(f => ({ content: readFileSync(f, { encoding: "utf8" }), path: f }));
+console.log(JSON.stringify(items));

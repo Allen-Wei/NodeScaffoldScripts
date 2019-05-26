@@ -1,3 +1,3 @@
-rm -rf ./dist 
-npx webpack --config webpack.config.js --display-error-details --profile --display-entrypoints --display-used-exports
-node ./dist/shell.js --project-name hello
+npm run build 
+node dist/shell.js --project-name alan --directory $(pwd)/dist/shell 
+ls -Al dist/shell

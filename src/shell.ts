@@ -1,16 +1,34 @@
 import { print, debug, autoGetArgs, pwd, renderDir, recursiveDirFiles } from "./modules";
-import { readdirSync } from "fs";
-import { join } from "path";
+import { readdirSync, existsSync, statSync } from "fs";
+import { join, resolve as absPath } from "path";
+import { pathToFileURL } from "url";
 
 const templateDir = "./templates/shell/";
-const targetDir = join(pwd(), "../dist", "shell");
 const templFiles: Array<TemplateFile> = [{
-    path: join(targetDir, "package.json"),
+    path: "package.json",
     template: require(`${templateDir}package.json.tmpl`).default
+}, {
+    path: "tsconfig.json",
+    template: require(`${templateDir}tsconfig.json.tmpl`).default
+}, {
+    path: "src/run.ts",
+    template: require(`${templateDir}src/run.ts.tmpl`).default
 }];
 
 const args = autoGetArgs();
 debug("Input parameters: ", args);
+
+if (args.size === 0 || args.get("--help")) {
+    showHelp();
+} else {
+    renderDir({ projectName: "test" }, templFiles.map(item => {
+        debug(item.path);
+        item.path = join(getTargetDirectory(), item.path);
+        debug(item.path);
+        return item;
+    }));
+}
+
 
 function showHelp(): void {
     const commandPrefix = "node shell.js";
@@ -26,13 +44,6 @@ Usage: ${commandPrefix} [opitons]
 `);
 }
 
-if (args.size === 0 || args.get("--help")) {
-    showHelp();
-} else {
-    renderDir({ projectName: "test" }, templFiles);
-    // renderDir({
-    //     projectName: ""
-    // }, [{
-    //     path: 
-    // }])
+function getTargetDirectory() {
+    return absPath((args.get("--directory") || "").toString());
 }
