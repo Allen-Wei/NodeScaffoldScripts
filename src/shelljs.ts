@@ -1,7 +1,7 @@
 import { print, debug, autoGetArgs, renderDir } from "./modules";
 import { join, resolve as absPath } from "path";
 
-const templateDir = "./templates/shell/";
+const templateDir = "./templates/shelljs/";
 const templFiles: Array<TemplateFile> = [{
     path: "package.json",
     template: require(`${templateDir}package.json.tmpl`).default
@@ -14,22 +14,19 @@ const templFiles: Array<TemplateFile> = [{
 }];
 
 const args = autoGetArgs();
-debug("Input parameters: ", args);
 
-if (args.size === 0 || args.get("--help")) {
+if (Object.keys(args).length === 0 || args["--help"]) {
     showHelp();
 } else {
     renderDir({ projectName: "test" }, templFiles.map(item => {
-        debug(item.path);
         item.path = join(getTargetDirectory(), item.path);
-        debug(item.path);
         return item;
     }));
 }
 
 
 function showHelp(): void {
-    const commandPrefix = "node shell.js";
+    const commandPrefix = "node shelljs.js";
     print(`
 Usage: ${commandPrefix} [opitons]
 选项: 
@@ -43,5 +40,5 @@ Usage: ${commandPrefix} [opitons]
 }
 
 function getTargetDirectory() {
-    return absPath((args.get("--directory") || "").toString());
+    return absPath((args["--directory"] || "").toString());
 }

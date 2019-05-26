@@ -21,14 +21,13 @@ export function render(template: string, vm: any): string {
 }
 export function renderDir(vm: any, files: Array<TemplateFile>): { success: boolean, message?: string } {
     for (let file of files) {
-        const print = getPrinter(file.path);
         const dirPath = dirname(file.path);
         if (!existsSync(dirPath)) {
             print(`create directory ${dirPath}`);
             mkdirSync(dirPath, { recursive: true });
         }
         const content = render(file.template, { ...file.vm, ...vm })
-        print(`write content(${content.length} bytes) to file`);
+        print(`write content(${content.length} bytes) to ${file.path}`);
         writeFileSync(file.path, content, { encoding: "utf8" });
     }
     return { success: true };

@@ -4,9 +4,8 @@
   "description": "JavaScript App Boilerplates",
   "main": "args.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rm -rf ./dist/dev && BUILD_MODE=dev webpack --config webpack.config.js --display-error-details --profile --display-entrypoints --display-used-exports",
-    "pro": "rm -rf ./dist/pro && BUILD_MODE=pro webpack --config webpack.config.js --display-error-details --profile --display-entrypoints --display-used-exports"
+    "dev": "rm -rf ./dist/debug && BUILD_MODE=dev webpack --config webpack.config.js --display-error-details --profile --display-entrypoints --display-used-exports",
+    "pro": "rm -rf ./dist/release && BUILD_MODE=pro webpack --config webpack.config.js --display-error-details --profile --display-entrypoints --display-used-exports"
   },
   "repository": {
     "type": "git",
