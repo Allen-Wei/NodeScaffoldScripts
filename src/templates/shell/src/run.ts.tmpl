@@ -1,5 +1,5 @@
 import {exec} from "shelljs";
 
-exec("ls -al", (code, stdout, stderr) => {
+exec("ls -Al", (code, stdout, stderr) => {
     console.log(stdout.toUpperCase());
 });

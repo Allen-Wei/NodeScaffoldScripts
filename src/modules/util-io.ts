@@ -1,5 +1,5 @@
 import { readdirSync, statSync, existsSync } from "fs";
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 
 
 export function* recursiveDirFiles(dir: string): IterableIterator<string> {
@@ -18,9 +18,13 @@ export function* recursiveDirFiles(dir: string): IterableIterator<string> {
 /**
  * get current script executed directory
  */
-export function pwd(): string {
+export function pwdByExecScriptFilePath(): string {
     if (process.argv[1] && existsSync(process.argv[1])) {
         return dirname(process.argv[1]);
     }
     return __dirname;
+}
+
+export function absPath(inDir: string): string {
+    return resolve(inDir || "");
 }

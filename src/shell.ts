@@ -1,7 +1,5 @@
-import { print, debug, autoGetArgs, pwd, renderDir, recursiveDirFiles } from "./modules";
-import { readdirSync, existsSync, statSync } from "fs";
+import { print, debug, autoGetArgs, renderDir } from "./modules";
 import { join, resolve as absPath } from "path";
-import { pathToFileURL } from "url";
 
 const templateDir = "./templates/shell/";
 const templFiles: Array<TemplateFile> = [{
@@ -40,7 +38,7 @@ Usage: ${commandPrefix} [opitons]
     --directory     代码生成目录, 默认当前目录
 
 例子:
-    ${commandPrefix} -project-name my-project -directory ./my-dir
+    ${commandPrefix} --project-name my-project --directory ./my-dir
 `);
 }
 

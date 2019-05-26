@@ -19,7 +19,7 @@
                 "wei"
             ],
             "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
+                "${workspaceFolder}/dist/debug/**/*.js"
             ]
         }
     ]

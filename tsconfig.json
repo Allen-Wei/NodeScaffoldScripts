@@ -4,7 +4,7 @@
         "target": "es6",
         "noImplicitAny": true,
         "moduleResolution": "node",
-        "outDir": "./dist/",
+        "outDir": "./dist/debug",
         "sourceMap": true,
         "allowJs": true,
     },
