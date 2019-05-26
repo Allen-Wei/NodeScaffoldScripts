@@ -9,8 +9,7 @@ fs.readdirSync(entryPath)
 
 module.exports = {
     entry: tsFiles,
-    //mode: "production",
-    mode: "development",
+    mode: process.env.BUILD_MODE === "pro" ? "production" : "development",
     target: "node",
     module: {
         rules: [{
@@ -27,6 +26,6 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, process.env.BUILD_MODE === "pro" ? "dist/release" : "dist/debug")
     }
 };
